@@ -19,8 +19,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 
+
 /**
- * Created by lmy on 2017/6/15.
+ * test git version control
  */
 public class AdminControoler extends Controller {
 
@@ -178,11 +179,9 @@ public class AdminControoler extends Controller {
                 setAttr("result", "删除失败！");
             }
             list();
-            return;
         } else {
             setAttr("error", "所要删除的文件不存在！");
             list();
-            return;
         }
     }
 
@@ -234,7 +233,7 @@ public class AdminControoler extends Controller {
     }
 
     //列出公告
-    public void listNotice() {
+    private void listNotice() {
         if (getSessionAttr("login")==null) {
             redirect("/admin/login");
             return;
