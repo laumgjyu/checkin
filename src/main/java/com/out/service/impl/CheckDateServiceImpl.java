@@ -3,7 +3,8 @@ package com.out.service.impl;
 import com.out.dao.CheckDateDao;
 import com.out.dao.UserDao;
 import com.out.dao.impl.CheckDateDaoImpl;
-import com.out.model.*;
+import com.out.model.CheckDate;
+import com.out.model.User;
 import com.out.service.CheckDateService;
 
 import java.text.SimpleDateFormat;
@@ -32,6 +33,8 @@ public class CheckDateServiceImpl implements CheckDateService {
                 check = checkDate.getDate("checkDate");
                 u_id = checkDate.getInt("u_id");
                 if (check != null && dateStr.equals(dateFormat.format(check))) {
+                    System.out.println(u_id);
+                    isChecked = true;
                     return true;
                 }
             }

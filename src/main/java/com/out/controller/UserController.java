@@ -21,9 +21,9 @@ import java.util.List;
 
 public class UserController extends Controller {
 
-    UserService userService = new UserServiceImpl();
-    NoticeService noticeService = new NoticeServiceImpl();
-    CheckDateService checkDateService = new CheckDateServiceImpl();
+    private UserService userService = new UserServiceImpl();
+    private NoticeService noticeService = new NoticeServiceImpl();
+    private CheckDateService checkDateService = new CheckDateServiceImpl();
 
     public void index() {
         render("index.html");
@@ -97,7 +97,7 @@ public class UserController extends Controller {
         StringBuffer filesName = new FileUtil().listFiles(path + "/" + username);
 
         setAttr("filesName", filesName);
-
+        setAttr("username", username);
         setSessionAttr("login", username);
 
         List<Notice> notices = noticeService.listNotices();
@@ -107,27 +107,42 @@ public class UserController extends Controller {
 
     //登退
     public void logout() {
-        if (getSessionAttr("login")!=null) {
+        if (getSessionAttr("login") != null) {
             setSessionAttr("login", null);
             redirect("/index");
         }
     }
 
-    public void changPassword() throws Exception {
+    //更改密码
+    public void changPassword() {
+        String username = getPara(0);
+        setAttr("username", username);
+        render("changPassword.html");
+    }
+
+    //更改密码  提交
+    public void changPasswordSubmmit() throws Exception {
         String username = getPara("username");
+        String oldPassword = getPara("oldPassword");
         String password1 = getPara("password1");
         String password2 = getPara("password2");
-        if (!password1.equals(password2)) {
-            setAttr("message", "两次输入的密码不一致！");
-        } else {
-            int result=userService.changPassword(username,password1);
-            if (result != 0) {
-                setAttr("message", "更改成功！");
+        if (userService.passwordCorrect(username, oldPassword)) {
+            if (!password1.equals(password2)) {
+                setAttr("message", "两次输入的密码不一致！");
             } else {
-                setAttr("message", "更改失败！");
+                int result = userService.changPassword(username, password1);
+                if (result != 0) {
+                    setAttr("message", "更改成功！");
+                } else {
+                    setAttr("message", "更改失败！");
+                }
+                render("changPassword.html");
             }
+
+        } else {
+            setAttr("message", "原密码错误！");
+            redirect("/changPassword/#(username)");
         }
-        redirect("/login");
     }
 
     public void changPasswordSuccess() {
