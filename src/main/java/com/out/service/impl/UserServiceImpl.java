@@ -69,5 +69,9 @@ public class UserServiceImpl implements UserService {
         return dao.changPassword(username, password);
     }
 
+    public int getId(String username) {
+        return dao.getId(username);
+    }
+
 
 }

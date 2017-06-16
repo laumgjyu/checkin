@@ -61,4 +61,9 @@ public class UserDaoImpl implements UserDao {
         String sql = "UPDATE t_user SET password=? WHERE username=?";
         return Db.update(sql, MD5Util.md5Encode(password), username);
     }
+
+    public int getId(String username) {
+        User user = dao.findFirst("SELECT id FROM t_user WHERE username=?", username);
+        return user.getInt("id");
+    }
 }

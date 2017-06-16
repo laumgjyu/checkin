@@ -31,4 +31,6 @@ public interface UserService {
 
     int changPassword(String username,String password) throws Exception;
 
+    int getId(String username);
+
 }

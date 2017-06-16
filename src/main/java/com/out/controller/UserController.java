@@ -3,13 +3,16 @@ package com.out.controller;
 import com.jfinal.aop.Before;
 import com.jfinal.core.Controller;
 import com.jfinal.upload.UploadFile;
+import com.out.model.Note;
 import com.out.model.Notice;
 import com.out.model.User;
 import com.out.model.UserDetail;
 import com.out.service.CheckDateService;
+import com.out.service.NoteService;
 import com.out.service.NoticeService;
 import com.out.service.UserService;
 import com.out.service.impl.CheckDateServiceImpl;
+import com.out.service.impl.NoteServiceImpl;
 import com.out.service.impl.NoticeServiceImpl;
 import com.out.service.impl.UserServiceImpl;
 import com.out.util.FileUtil;
@@ -24,7 +27,7 @@ public class UserController extends Controller {
     private UserService userService = new UserServiceImpl();
     private NoticeService noticeService = new NoticeServiceImpl();
     private CheckDateService checkDateService = new CheckDateServiceImpl();
-
+    private NoteService noteService = new NoteServiceImpl();
     public void index() {
         render("index.html");
     }
@@ -145,10 +148,6 @@ public class UserController extends Controller {
         }
     }
 
-    public void changPasswordSuccess() {
-
-    }
-
     //文件上传
     public void doUpload() {
 
@@ -200,7 +199,6 @@ public class UserController extends Controller {
         renderFile(name);
     }
 
-
     //用户签到
     public void check() {
 
@@ -216,5 +214,14 @@ public class UserController extends Controller {
             setAttr("message", "签到成功！");
             renderText("签到成功！");
         }
+    }
+
+    //学习笔记
+    public void listNotes() {
+        String username = getSessionAttr("login");
+        int userId = userService.getId(username);
+        List<Note> notes = noteService.listNotes(userId);
+        setAttr("notes", notes);
+        render("notes.html");
     }
 }

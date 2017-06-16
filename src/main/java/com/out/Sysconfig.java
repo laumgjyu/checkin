@@ -54,6 +54,7 @@ public class Sysconfig extends JFinalConfig {
         arp.addMapping("t_file", File.class);
         arp.addMapping("t_notice", Notice.class);
         arp.addMapping("t_checkDate", CheckDate.class);
+        arp.addMapping("t_note", Note.class);
     }
 
     @Override

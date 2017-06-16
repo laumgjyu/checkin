@@ -25,4 +25,6 @@ public interface UserDao {
     void saveUser(String imgPath, User user, UserDetail detail) throws Exception;
 
     int changPassword(String username, String password) throws Exception;
+
+    int getId(String username);
 }
