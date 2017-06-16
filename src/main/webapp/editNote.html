@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="/editNoteSubmmit">
+    <input type="hidden" name="id" value="#(id)">
+    <input type="text" name="theme" value="#(note.get('theme'))">
+    <textarea name="content" cols="30" rows="10">#(note.get('content'))</textarea>
+    <input type="submit">
+</form>
+</body>
+</html>

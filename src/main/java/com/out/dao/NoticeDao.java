@@ -11,4 +11,5 @@ public interface NoticeDao {
     Notice dao = new Notice();
 
     List<Notice> list();
+
 }

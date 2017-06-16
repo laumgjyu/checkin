@@ -7,6 +7,17 @@
 <body>
 #for(note : notes)
 #(note.get("theme"))
+<a href="/noteContent/#(note.get('id'))">查看</a>
+<a href="/editNote/#(note.get('id'))">编辑</a>
+<a href="/deleteNote/#(note.get('id'))">删除</a>
+<br>
 #end
+<hr>
+<form action="/addNote" method="post">
+
+    <input type="text" name="theme">
+    <textarea name="content" cols="30" rows="10"></textarea>
+    <input type="submit">
+</form>
 </body>
 </html>

@@ -216,12 +216,57 @@ public class UserController extends Controller {
         }
     }
 
-    //学习笔记
+    //列出学习笔记
     public void listNotes() {
         String username = getSessionAttr("login");
         int userId = userService.getId(username);
         List<Note> notes = noteService.listNotes(userId);
         setAttr("notes", notes);
         render("notes.html");
+    }
+
+    //添加学习笔记
+    public void addNote() {
+        String username = getSessionAttr("login");
+        int userId = userService.getId(username);
+        String theme = getPara("theme");
+        String content = getPara("content");
+        noteService.addNote(userId, theme, content);
+        listNotes();
+
+    }
+
+    //删除学习笔记
+    public void deleteNote() {
+        int id = getParaToInt(0);
+        noteService.deleteNote(id);
+        listNotes();
+    }
+
+    //编辑学习笔记
+    public void editNote() {
+        int id = getParaToInt(0);
+        Note note = noteService.findById(id);
+        setAttr("note", note);
+        setAttr("id", id);
+        render("editNote.html");
+    }
+
+    //提交编辑
+    public void editNoteSubmmit() {
+        String theme = getPara("theme");
+        String content = getPara("content");
+        int id = getParaToInt("id");
+        noteService.editNote(id, theme, content);
+        listNotes();
+    }
+
+    //查看笔记内容
+    public void noteContent() {
+        int id = getParaToInt(0);
+        Note note = noteService.findById(id);
+        setAttr("note", note);
+        render("noteContent.html");
+
     }
 }

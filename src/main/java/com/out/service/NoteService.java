@@ -9,4 +9,13 @@ import java.util.List;
  */
 public interface NoteService {
     List<Note> listNotes(int userId);
+
+    void addNote(int userId, String theme, String content);
+
+    void deleteNote(int id);
+
+    Note findById(int id);
+
+    void editNote(int id, String theme, String content);
+
 }

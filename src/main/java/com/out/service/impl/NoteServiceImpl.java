@@ -17,4 +17,21 @@ public class NoteServiceImpl implements NoteService {
     public List<Note> listNotes(int userId) {
         return dao.listNotes(userId);
     }
+
+    public void addNote(int userId, String theme, String content) {
+        dao.add(userId, theme, content);
+    }
+
+    public void deleteNote(int id) {
+        NoteDao.dao.deleteById(id);
+    }
+
+    public Note findById(int id) {
+        return NoteDao.dao.findById(id);
+    }
+
+    public void editNote(int id, String theme, String content) {
+        dao.editNote(id, theme, content);
+    }
+
 }
