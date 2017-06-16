@@ -23,4 +23,6 @@ public interface UserDao {
     User findByName(String name);
 
     void saveUser(String imgPath, User user, UserDetail detail) throws Exception;
+
+    int changPassword(String username, String password) throws Exception;
 }

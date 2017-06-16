@@ -92,7 +92,7 @@ public class UserController extends Controller {
         }
     }
 
-    public void loginSuccess(String username) {
+    private void loginSuccess(String username) {
         String path = new FileUtil().getPath("upload");
         StringBuffer filesName = new FileUtil().listFiles(path + "/" + username);
 
@@ -104,6 +104,36 @@ public class UserController extends Controller {
         setAttr("notices", notices);
         render("login_success.html");
     }
+
+    //登退
+    public void logout() {
+        if (getSessionAttr("login")!=null) {
+            setSessionAttr("login", null);
+            redirect("/index");
+        }
+    }
+
+    public void changPassword() throws Exception {
+        String username = getPara("username");
+        String password1 = getPara("password1");
+        String password2 = getPara("password2");
+        if (!password1.equals(password2)) {
+            setAttr("message", "两次输入的密码不一致！");
+        } else {
+            int result=userService.changPassword(username,password1);
+            if (result != 0) {
+                setAttr("message", "更改成功！");
+            } else {
+                setAttr("message", "更改失败！");
+            }
+        }
+        redirect("/login");
+    }
+
+    public void changPasswordSuccess() {
+
+    }
+
     //文件上传
     public void doUpload() {
 

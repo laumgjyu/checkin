@@ -3,7 +3,8 @@ package com.out.dao.impl;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Page;
 import com.out.dao.UserDao;
-import com.out.model.*;
+import com.out.model.User;
+import com.out.model.UserDetail;
 import com.out.util.MD5Util;
 
 import java.util.List;
@@ -23,11 +24,11 @@ public class UserDaoImpl implements UserDao {
         List count = dao.find("SELECT count(*) FROM t_user");
         User user = (User) count.get(0);
         long totalRecords = user.get("count(*)");
-        long totalPage = (totalRecords + PAGE_SIZE - 1)/ PAGE_SIZE;
+        long totalPage = (totalRecords + PAGE_SIZE - 1) / PAGE_SIZE;
         if (pageNumber <= 0)
             pageNumber = 1;
-        if (pageNumber>totalPage)
-            pageNumber = (int)totalPage;
+        if (pageNumber > totalPage)
+            pageNumber = (int) totalPage;
         Page page = dao.paginate(pageNumber, PAGE_SIZE, "SELECT * ", "FROM t_user u INNER JOIN t_userdetail d ON u.id = d.u_id");
         return page.getList();
     }
@@ -56,5 +57,8 @@ public class UserDaoImpl implements UserDao {
         Db.update("INSERT INTO t_checkdate SET u_id=?", user.getInt("id"));
     }
 
-
+    public int changPassword(String username, String password) throws Exception {
+        String sql = "UPDATE t_user SET password=? WHERE username=?";
+        return Db.update(sql, MD5Util.md5Encode(password), username);
+    }
 }

@@ -29,4 +29,6 @@ public interface UserService {
 
     void register();
 
+    int changPassword(String username,String password) throws Exception;
+
 }

@@ -65,5 +65,9 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    public int changPassword(String username,String password) throws Exception {
+        return dao.changPassword(username, password);
+    }
+
 
 }
