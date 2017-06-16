@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="/admin/modifyNoticeSuccess" method="post">
+    <input type="hidden" name="id" value="#(notice.get('id'))">
+<textarea name="notice" cols="30" rows="10">#(notice.get('notice'))</textarea>
+    <input type="submit" value="修改">
+</form>
+</body>
+</html>

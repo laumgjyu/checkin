@@ -1,0 +1,21 @@
+
+<html>
+<head>
+    <title>Title</title>
+</head>
+<body>
+<div>
+    添加公告：<br>
+    <form action="/addNotice" method="post">
+        <textarea name="notice.notice" cols="30" rows="10"></textarea>
+        <input type="submit" value="修改">
+    </form>
+</div>
+#(message)
+#for(notice:notices)
+<textarea name="#(notice.get('id'))" cols="30" rows="10" disabled="disabled">#(notice.get('notice'))</textarea>
+<a href="/deleteNotice/#(notice.get('id'))">删除</a>
+<a href="/modifyNotice/#(notice.get('id'))">修改</a>
+#end
+</body>
+</html>

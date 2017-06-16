@@ -1,0 +1,38 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: lmy
+  Date: 2017/3/24
+  Time: 23:15
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+  <head>
+    <title></title>
+  </head>
+  <body>
+  ${message}
+<form action="/registerSubmmit" method="post" enctype="multipart/form-data">
+head: <input type="file" name="head"> <br>
+    username:<input type="text" name="user.username"> <br>
+    password:<input type="password" name="user.password"><br>
+    name: <input type="text" name="userDetail.name"><br>
+    sex: <select name="userDetail.sex">
+    <option selected="selected">男</option>
+    <option>女</option>
+</select><br>
+    tel: <input type="text" name="userDetail.tel"><br>
+    QQ: <input type="text" name="userDetail.QQ"><br>
+    weixin: <input type="text" name="userDetail.weixin"><br>
+    email: <input type="text" name="userDetail.email"><br>
+    grade: <select name="userDetail.grade">
+                <option selected="selected">2016</option>
+                <option>2017</option>
+                <option>2015</option>
+            </select><br>
+    desc: <textarea name="userDetail.desc" cols="30" rows="10"></textarea><br>
+    language: <input type="text" name="userDetail.lang"><br>
+    <input type="submit">
+</form>
+  </body>
+</html>

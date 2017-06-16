@@ -1,0 +1,78 @@
+
+<html>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="jquery-easyui/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="jquery-easyui/themes/icon.css">
+<script type="text/javascript" src="jquery-easyui/jquery.min.js"></script>
+<script type="text/javascript" src="jquery-easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
+<head>
+    <title>编辑用户</title>
+</head>
+<body>
+<div id="edit" class="easyui-dialog" style="width: 500px;height: 600px;padding:10px 20px"
+     buttons="#dlg-buttons">
+    <form id="fm" action="/updateSuccess" method="post">
+        <table cellspacing="10px;">
+            #(message)
+            <input type="hidden" name="user.id" value="#(user.get('id'))">
+            <input type="hidden" name="userDetail.d_id" value="#(user.get('d_id'))">
+            <input type="hidden" name="userDetail.u_id" value="#(user.get('u_id'))">
+            <tr>
+                <td>用户名：</td>
+                <td><input id="username" name="user.username" class="easyui-validatebox" required="true" style="width: 200px;" value="#(user.get('username'))"></td>
+            </tr>
+            <tr>
+                <td>密码：</td>
+                <td><input id="password" name="user.password" class="easyui-validatebox" required="true" style="width: 200px;" value="#(user.get('password'))"></td>
+            </tr>
+            <tr>
+                <td>姓名：</td>
+                <td><input id="name" name="userDetail.name" class="easyui-validatebox" validType="email" required="true" style="width: 200px;" value="#(user.get('name'))"></td>
+            </tr>
+            <tr>
+                <td>性别：</td>
+                <td><select name="userDetail.sex">
+                    <option>男</option>
+                    <option>女</option>
+                </select></td>
+            </tr>
+            <tr>
+                <td>电话：</td>
+                <td><input id="tel" name="userDetail.tel" class="easyui-validatebox" required="true" style="width: 200px;" value="#(user.get('tel'))"></td>
+            </tr>
+            <tr>
+                <td>QQ：</td>
+                <td><input id="QQ" name="userDetail.QQ" class="easyui-validatebox" required="true" style="width: 200px;" value="#(user.get('QQ'))"></td>
+            </tr>
+            <tr>
+                <td>微信：</td>
+                <td><input id="weixin" name="userDetail.weixin" class="easyui-validatebox" required="true" style="width: 200px;" value="#(user.get('weixin'))"></td>
+            </tr>
+            <tr>
+                <td>Email：</td>
+                <td><input id="email" name="userDetail.email" class="easyui-validatebox" required="true" style="width: 200px;" value="#(user.get('email'))"></td>
+            </tr>
+            <tr>
+                <td>年级：</td>
+                <td><select name="userDetail.grade">
+                    <option selected="selected">2016</option>
+                    <option>2017</option>
+                    <option>2015</option>
+                </select></td>
+            </tr>
+            <tr>
+                <td>自我介绍：</td>
+                <td><input id="desc" name="userDetail.desc" class="easyui-validatebox" required="true" style="width: 200px;" value="#(user.get('desc'))"></td>
+            </tr>
+            <tr>
+                <td>精通语言：</td>
+                <td><input id="lang" name="userDetail.lang" class="easyui-validatebox" required="true" style="width: 200px;" value="#(user.get('lang'))"></td>
+            </tr>
+
+        </table>
+        <input type="submit" value="更新">
+    </form>
+</div>
+</body>
+</html>

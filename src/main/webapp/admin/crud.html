@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>后台管理</title>
+	<link rel="stylesheet" type="text/css" href="../jquery-easyui/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="../jquery-easyui/themes/icon.css">
+	<script type="text/javascript" src="../jquery-easyui/jquery.min.js"></script>
+	<script type="text/javascript" src="../jquery-easyui/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="../jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
+	<script>
+		var url;
+
+		function newUser(){
+			$("#add").dialog('open').dialog('setTitle','添加用户');
+			$('#fm').form('clear');
+			url='/registerSubmmit';
+		}
+
+        function editUser(user){
+            $("#edit").dialog('open').dialog('setTitle','编辑用户');
+            document.getElementById('username').value = user.get("username");
+            document.getElementById('password').value = user.get("password");
+        }
+
+		function exportUser(){
+			window.open('/admin/export')
+		}
+
+
+	</script>
+</head>
+<body>
+
+	<table id="dg" title="用户管理" class="easyui-datagrid" style="height:400px"
+            url="user!list"
+            toolbar="#toolbar" pagination="true"
+            rownumbers="true" fitColumns="true" singleSelect="true">
+        <thead>
+            <tr>
+            	<th field="id" width="100" hidden="true">编号</th>
+                <th field="head" width="100">头像</th>
+                <th field="username" width="100">用户名</th>
+                <th field="password" width="100">密码</th>
+                <th field="name" width="100">姓名</th>
+                <th field="sex" width="100">性别</th>
+                <th field="telephone" width="100">电话</th>
+                <th field="qq" width="100">QQ</th>
+                <th field="weixin" width="100">微信</th>
+                <th field="email" width="100">Email</th>
+                <th field="grade" width="100">年级</th>
+                <th field="lang" width="100">精通语言</th>
+                <th field="desc" width="100">自我介绍</th>
+            </tr>
+            #for(user : users)
+            <tr>
+                <th hidden="true">#(user.get("id"))</th>
+                <th width="100"><img src="#(user.get('head'))" height="40" width="40" ></th>
+                <th width="100">#(user.get('username'))</th>
+                <th width="100">#(user.get("password"))</th>
+                <th width="100">#(user.get("name"))</th>
+                <th width="100">#(user.get("sex"))</th>
+                <th width="100">#(user.get("tel"))</th>
+                <th width="100">#(user.get("QQ"))</th>
+                <th width="100">#(user.get("weixin"))</th>
+                <th width="100">#(user.get("email"))</th>
+                <th width="100">#(user.get("grade"))</th>
+                <th width="100">#(user.get("desc"))</th>
+                <th width="100">#(user.get("lang"))</th>
+                <th><a href="/admin/update/#(user.get('id'))">编辑</a></th>
+                <th><a href="/admin/delete/#(user.get('id'))">删除</a></th>
+                <th><a href="/admin/listCheckedDays/#(user.get('id'))">签到情况</a></th>
+            </tr>
+            #end
+        </thead>
+    </table>
+    <div id="toolbar">
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true"
+           onclick="newUser()">添加用户</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-export" plain="true"
+           onclick="exportUser()">导出用户</a>
+        <form action="/admin/findByName" method="post">
+            通过姓名查找：<input type="text" name="name">
+            <input type="submit" value="查找">
+        </form>
+        <a href="/admin/list/#(pageNumber-1)">上一页</a>
+        <a href="/admin/list/#(pageNumber+1)">下一页</a>
+        #(error)
+    </div>
+
+	<div id="add" class="easyui-dialog" style="width: 500px;height: 600px;padding:10px 20px"
+            closed="true" buttons="#dlg-buttons">
+        <form action="/registerSubmmit" method="post" enctype="multipart/form-data">
+        	<table cellspacing="10px;">
+                <tr>
+                    <td>头 像：</td>
+                    <td><input type="file" name="head" class="easyui-validatebox" required="true" style="width: 200px;"></td>
+                </tr>
+        		<tr>
+        			<td>用户名：</td>
+        			<td><input type="text" name="user.username" class="easyui-validatebox" required="true" style="width: 200px;"></td>
+        		</tr>
+        		<tr>
+        			<td>密码：</td>
+        			<td><input type="password" name="user.password" class="easyui-validatebox" required="true" style="width: 200px;"></td>
+        		</tr>
+        		<tr>
+        			<td>姓名：</td>
+        			<td><input type="text" name="userDetail.name" class="easyui-validatebox" required="true" style="width: 200px;"></td>
+        		</tr>
+        		<tr>
+        			<td>性别：</td>
+        			<td><select name="userDetail.sex">
+                    <option>男</option>
+                    <option>女</option>
+                </select></td>
+        		</tr>
+                <tr>
+                    <td>电话：</td>
+                    <td><input type="tel" name="userDetail.tel" class="easyui-validatebox" required="true" style="width: 200px;"></td>
+                </tr>
+                <tr>
+                    <td>QQ：</td>
+                    <td><input type="text" name="userDetail.QQ" class="easyui-validatebox" required="true" style="width: 200px;"></td>
+                </tr>
+                <tr>
+                    <td>微信：</td>
+                    <td><input type="text" name="userDetail.weixin" class="easyui-validatebox" required="true" style="width: 200px;"></td>
+                </tr>
+                <tr>
+                    <td>Email：</td>
+                    <td><input type="email" name="userDetail.email" class="easyui-validatebox" validType="email" required="true" style="width: 200px;"></td>
+                </tr>
+                <tr>
+                    <td>年级：</td>
+                    <td><select name="userDetail.grade">
+                        <option selected="selected">2016</option>
+                        <option>2017</option>
+                        <option>2015</option>
+                    </select></td>
+                </tr>
+                <tr>
+                    <td>自我介绍：</td>
+                    <td><input type="text" name="userDetail.desc" class="easyui-validatebox" required="true" style="width: 200px;"></td>
+                </tr>
+                <tr>
+                    <td>精通语言：</td>
+                    <td><input type="text" name="userDetail.lang" class="easyui-validatebox" required="true" style="width: 200px;"></td>
+                </tr>
+
+        	</table>
+            <input type="submit">
+        </form>
+        <a href="/admin/list/#(pageNumber-1)">上一页</a>
+        <a href="/admin/list/#(pageNumber+1)">下一页</a>
+	</div>
+#(result)
+    当前文件：#(filesName)
+    <form action="/admin/deleteFile" method="get">
+       输入要删除的文件名： <input type="text" name="deleteFileName"> <br>
+        <input type="submit" >
+    </form>
+#(error)
+
+    <a href="/admin/listNotice">公告</a>
+</body>
+</html>
