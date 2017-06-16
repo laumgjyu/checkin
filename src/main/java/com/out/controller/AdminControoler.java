@@ -19,10 +19,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 
-
-/**
- * test git version control
- */
 public class AdminControoler extends Controller {
 
     private UserService userService = new UserServiceImpl();

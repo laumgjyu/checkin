@@ -18,9 +18,7 @@ import com.out.validator.UserValidator;
 import java.io.File;
 import java.util.List;
 
-/**
- * test github
- */
+
 public class UserController extends Controller {
 
     UserService userService = new UserServiceImpl();
