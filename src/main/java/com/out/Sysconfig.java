@@ -8,6 +8,7 @@ import com.jfinal.plugin.druid.DruidPlugin;
 import com.jfinal.template.Engine;
 import com.out.controller.AdminControoler;
 import com.out.controller.UserController;
+import com.out.handler.SkipHandler;
 import com.out.model.*;
 
 /**
@@ -64,6 +65,6 @@ public class Sysconfig extends JFinalConfig {
 
     @Override
     public void configHandler(Handlers handlers) {
-
+        handlers.add(new SkipHandler());
     }
 }
