@@ -5,7 +5,7 @@ import com.out.dao.impl.UserDaoImpl;
 import com.out.model.User;
 import com.out.model.UserDetail;
 import com.out.service.UserService;
-import com.out.util.MD5Util;
+import com.out.util.AESUtil;
 
 import java.util.List;
 
@@ -33,11 +33,19 @@ public class UserServiceImpl implements UserService {
 
         User user = dao.find(username);
         String passwordInDb = user.getStr("password");
-        return MD5Util.md5Encode(password).equals(passwordInDb);
+        return AESUtil.encrypt(password).equals(passwordInDb);
     }
 
     public List<User> listByPage(int pageNumber) {
-        return dao.list(pageNumber);
+        List<User> users = dao.list(pageNumber);
+        for (User user : users) {
+            String password = user.get("password");
+            System.out.println(password);
+            System.out.println(AESUtil.decrypt(password));
+
+            user.set("password", AESUtil.decrypt(password));
+        }
+        return users;
     }
 
     public void deleteById(int id) {

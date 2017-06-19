@@ -12,10 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 public class SkipHandler extends Handler {
 
     public void handle(String s, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, boolean[] booleans) {
-        if (s.endsWith(".html")) {
+        if (s.endsWith(".html") || s.endsWith(".jsp")) {
 
-            HandlerKit.renderError404(httpServletRequest, httpServletResponse, booleans);
-
+//            HandlerKit.renderError404(httpServletRequest, httpServletResponse, booleans);
+            HandlerKit.redirect("/login", httpServletRequest, httpServletResponse, booleans);
         } else {
 
             next.handle(s, httpServletRequest, httpServletResponse, booleans);

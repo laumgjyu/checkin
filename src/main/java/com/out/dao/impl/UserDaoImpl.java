@@ -5,6 +5,7 @@ import com.jfinal.plugin.activerecord.Page;
 import com.out.dao.UserDao;
 import com.out.model.User;
 import com.out.model.UserDetail;
+import com.out.util.AESUtil;
 import com.out.util.MD5Util;
 
 import java.util.List;
@@ -20,17 +21,23 @@ public class UserDaoImpl implements UserDao {
     }
 
     public List list(int pageNumber) {
-        final int PAGE_SIZE = 10;
-        List count = dao.find("SELECT count(*) FROM t_user");
-        User user = (User) count.get(0);
-        long totalRecords = user.get("count(*)");
-        long totalPage = (totalRecords + PAGE_SIZE - 1) / PAGE_SIZE;
-        if (pageNumber <= 0)
-            pageNumber = 1;
-        if (pageNumber > totalPage)
-            pageNumber = (int) totalPage;
-        Page page = dao.paginate(pageNumber, PAGE_SIZE, "SELECT * ", "FROM t_user u INNER JOIN t_userdetail d ON u.id = d.u_id");
-        return page.getList();
+        if (pageNumber == 0) {
+            return null;
+        } else {
+            final int PAGE_SIZE = 10;
+            List count = dao.find("SELECT count(*) FROM t_user");
+            User user = (User) count.get(0);
+            long totalRecords = user.get("count(*)");
+            long totalPage = (totalRecords + PAGE_SIZE - 1) / PAGE_SIZE;
+            if (pageNumber >= totalPage) {
+                pageNumber = (int) totalPage;
+            }
+            if (pageNumber <= 0) {
+                pageNumber = 1;
+            }
+            Page page = dao.paginate(pageNumber, PAGE_SIZE, "SELECT * ", "FROM t_user u INNER JOIN t_userdetail d ON u.id = d.u_id");
+            return page.getList();
+        }
     }
 
     public List list() {
@@ -50,7 +57,7 @@ public class UserDaoImpl implements UserDao {
     public void saveUser(String imgPath, User user, UserDetail detail) throws Exception {
         detail.set("head", imgPath);
         String password = user.get("password");
-        user.set("password", MD5Util.md5Encode(password));
+        user.set("password", AESUtil.encrypt(password));
         user.save();
         detail.set("u_id", user.get("id"));
         detail.save();

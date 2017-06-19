@@ -4,7 +4,7 @@ import com.out.dao.AdminDao;
 import com.out.dao.impl.AdminDaoImpl;
 import com.out.model.Admin;
 import com.out.service.AdminService;
-import com.out.util.MD5Util;
+import com.out.util.AESUtil;
 
 /**
  * Created by lmy on 2017/6/15.
@@ -23,6 +23,6 @@ public class AdminServiceImpl implements AdminService {
 
         String adminpasswordInDb = admin.getStr("adminpassword");
 
-        return  MD5Util.md5Encode(adminname).equals(adminpasswordInDb);
+        return AESUtil.encrypt(adminname).equals(adminpasswordInDb);
     }
 }

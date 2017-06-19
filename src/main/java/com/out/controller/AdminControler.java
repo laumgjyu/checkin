@@ -19,7 +19,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 
-public class AdminControoler extends Controller {
+public class AdminControler extends Controller {
 
     private UserService userService = new UserServiceImpl();
     private AdminService adminService = new AdminServiceImpl();
@@ -42,7 +42,7 @@ public class AdminControoler extends Controller {
 
         if (adminService.exist(adminname)) {
             if (adminService.passwordCorrect(adminname, adminpassword)) {
-                setSessionAttr("login", "admin");
+//                setSessionAttr("login", "admin");
                 list();
             } else {
                 setAttr("message", "密码错误！");
@@ -58,10 +58,10 @@ public class AdminControoler extends Controller {
 
     //列出用户
     public void list() {
-        if (getSessionAttr("login")==null) {
-            redirect("/admin/login");
-            return;
-        }
+//        if (getSessionAttr("login")==null) {
+//            redirect("/admin/login");
+//            return;
+//        }
         int pageNumber;
         if (getParaToInt(0) != null) {
             pageNumber = getParaToInt(0);
@@ -82,10 +82,10 @@ public class AdminControoler extends Controller {
 
     //删除
     public void delete() {
-        if (getSessionAttr("login")==null) {
-            redirect("/admin/login");
-            return;
-        }
+//        if (getSessionAttr("login")==null) {
+//            redirect("/admin/login");
+//            return;
+//        }
         int id = getParaToInt(0);
         userService.deleteById(id);
         redirect("/admin/list");
@@ -93,10 +93,10 @@ public class AdminControoler extends Controller {
 
     //更新
     public void update() {
-        if (getSessionAttr("login")==null) {
-            redirect("/admin/login");
-            return;
-        }
+//        if (getSessionAttr("login")==null) {
+//            redirect("/admin/login");
+//            return;
+//        }
         int id = getParaToInt(0);
         User user = userService.findById(id);
         setAttr("user", user);
@@ -105,10 +105,10 @@ public class AdminControoler extends Controller {
 
     //更新成功
     public void updateSuccess() {
-        if (getSessionAttr("login")==null) {
-            redirect("/admin/login");
-            return;
-        }
+//        if (getSessionAttr("login")==null) {
+//            redirect("/admin/login");
+//            return;
+//        }
         User user = getModel(User.class);
         UserDetail detail = getModel(UserDetail.class);
         String username = user.get("username");
@@ -130,10 +130,10 @@ public class AdminControoler extends Controller {
 
     //通过姓名查找用户
     public void findByName() {
-        if (getSessionAttr("login")==null) {
-            redirect("/admin/login");
-            return;
-        }
+//        if (getSessionAttr("login")==null) {
+//            redirect("/admin/login");
+//            return;
+//        }
         String name = getPara("name");
         if (name == null || name.trim().equals("")) {
             setAttr("error", "搜索内容不能为空！");
@@ -156,10 +156,10 @@ public class AdminControoler extends Controller {
 
     //删除库中的文件
     public void deleteFile() {
-        if (getSessionAttr("login")==null) {
-            redirect("/admin/login");
-            return;
-        }
+//        if (getSessionAttr("login")==null) {
+//            redirect("/admin/login");
+//            return;
+//        }
         String fileName = getPara("deleteFileName").trim();
         File file = new File("web/upload/userFile/" + fileName);
         if (file.exists()) {
@@ -183,10 +183,10 @@ public class AdminControoler extends Controller {
 
     //修改公告
     public void modifyNotice() {
-        if (getSessionAttr("login")==null) {
-            redirect("/admin/login");
-            return;
-        }
+//        if (getSessionAttr("login")==null) {
+//            redirect("/admin/login");
+//            return;
+//        }
         int id = getParaToInt(0);
         Notice notice = noticeService.findById(id);
         setAttr("notice", notice);
@@ -195,10 +195,10 @@ public class AdminControoler extends Controller {
 
     //修改公告成功
     public void modifyNoticeSuccess() {
-        if (getSessionAttr("login")==null) {
-            redirect("/admin/login");
-            return;
-        }
+//        if (getSessionAttr("login")==null) {
+//            redirect("/admin/login");
+//            return;
+//        }
         int id = getParaToInt("id");
         String content = getPara("notice");
         Db.update("UPDATE t_notice SET notice=? WHERE id=?", content, id);
@@ -207,10 +207,10 @@ public class AdminControoler extends Controller {
 
     //添加公告
     public void addNotice() {
-        if (getSessionAttr("login")==null) {
-            redirect("/admin/login");
-            return;
-        }
+//        if (getSessionAttr("login")==null) {
+//            redirect("/admin/login");
+//            return;
+//        }
         Notice notice = getModel(Notice.class);
         notice.save();
         setAttr("message", "添加成功！");
@@ -219,10 +219,10 @@ public class AdminControoler extends Controller {
 
     //删除公告
     public void deleteNotice() {
-        if (getSessionAttr("login")==null) {
-            redirect("/admin/login");
-            return;
-        }
+//        if (getSessionAttr("login")==null) {
+//            redirect("/admin/login");
+//            return;
+//        }
         int id = getParaToInt(0);
         noticeService.deleteById(id);
         listNotice();
@@ -230,10 +230,10 @@ public class AdminControoler extends Controller {
 
     //列出公告
     private void listNotice() {
-        if (getSessionAttr("login")==null) {
-            redirect("/admin/login");
-            return;
-        }
+//        if (getSessionAttr("login")==null) {
+//            redirect("/admin/login");
+//            return;
+//        }
         List<Notice> notices = noticeService.listNotices();
         setAttr("notices", notices);
         render("notice.html");
@@ -241,10 +241,10 @@ public class AdminControoler extends Controller {
 
     //列出签到情况
     public void listCheckedDays() {
-        if (getSessionAttr("login")==null) {
-            redirect("/admin/login");
-            return;
-        }
+//        if (getSessionAttr("login")==null) {
+//            redirect("/admin/login");
+//            return;
+//        }
         int userId = getParaToInt(0);
         List<CheckDate> checkDates = checkDateService.listCheckedDays(userId);
         setAttr("checkedDays", checkDates);

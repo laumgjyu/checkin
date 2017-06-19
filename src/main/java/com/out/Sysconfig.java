@@ -6,7 +6,7 @@ import com.jfinal.kit.PropKit;
 import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 import com.jfinal.plugin.druid.DruidPlugin;
 import com.jfinal.template.Engine;
-import com.out.controller.AdminControoler;
+import com.out.controller.AdminControler;
 import com.out.controller.UserController;
 import com.out.handler.SkipHandler;
 import com.out.model.*;
@@ -29,7 +29,7 @@ public class Sysconfig extends JFinalConfig {
     @Override
     public void configRoute(Routes routes) {
         routes.add("/", UserController.class);
-        routes.add("/admin", AdminControoler.class);
+        routes.add("/admin", AdminControler.class);
     }
 
     @Override
